@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload</title>
+</head>
+<body>
+  <form>
+    <p>file: <input name="file" type="file" id="fileInput"></p>
+    <p><button type="button" id="submit">提交</button></p>
+  </form>
+</body>
+</html>
+
+<script>
+  const formData = new FormData()
+  formData.append('extra', 'hello')
+  
+  fileInput.addEventListener('change', (e) => {
+    console.log(fileInput.files);
+    const file = fileInput.files[0]
+    formData.append('filename', file.name)
+    formData.append('file', file)
+  })
+  submit.addEventListener('click', () => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:2000/upload')
+    xhr.send(formData)
+  })
+</script>
